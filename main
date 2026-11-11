@@ -16,3 +16,12 @@ def make_ride(client, from_station, to_station, minutes, bike_type=None):
     if cost is None:
         return f"{client.name}: не вистачає грошей"
     return f"{client.name}: {from_station.name} -> {to_station.name}, {minutes} хв, {cost} грн"
+
+def print_report(stations):
+    # друкує звіт адміністратора
+    print("Звіт:")
+    for station in stations:
+        print(f"{station.name} — велосипедів: {station.count_bikes()}")
+    print(f"Виручка: {get_total_revenue()} грн")
+
+
