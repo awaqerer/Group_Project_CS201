@@ -1,0 +1,18 @@
+from bikes import Bike, ElectricBike, Station
+from clients import Client
+from rides import take_bike, return_bike, get_total_revenue
+
+
+def make_ride(client, from_station, to_station, minutes, bike_type=None):
+    # проводить поїздку і повертає текст результату (сама нічого не друкує)
+    status = take_bike(client, from_station, bike_type)
+    if status == "no_bikes":
+        return f"{from_station.name}: велосипедів немає"
+    if status == "already_has_bike":
+        return f"{client.name} вже катається"
+
+    bike = client.current_bike
+    cost = return_bike(client, to_station, minutes)
+    if cost is None:
+        return f"{client.name}: не вистачає грошей"
+    return f"{client.name}: {from_station.name} -> {to_station.name}, {minutes} хв, {cost} грн"
